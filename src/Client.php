@@ -220,7 +220,14 @@ class Client
 
         try {
             $options = $this->getStreamOptions();
-            stream_context_set_option($this->context, $options);
+            if (PHP_VERSION_ID >= 80300)
+            {
+                stream_context_set_options($this->context, $options);
+            }
+            else
+            {
+                stream_context_set_option($this->context, $options);
+            }
             $message = file_get_contents($this->uri, false, $this->context);
 
             $this->throwHttpExceptionOnHttpError($http_response_header);
