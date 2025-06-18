@@ -1,5 +1,5 @@
 {
-    "name": "datto/json-rpc-http",
+    "name": "tacman/json-rpc-http",
     "type": "library",
     "description": "HTTP client and server for JSON-RPC 2.0",
     "keywords": ["php", "json", "rpc", "jsonrpc", "json-rpc", "php-json-rpc", "http", "client", "server"],
@@ -11,16 +11,25 @@
             "email": "smortensen@datto.com",
             "homepage": "http://spencermortensen.com",
             "role": "Developer"
+        },
+        {
+            "name": "Tac Tacelosky",
+            "email": "tacman@gmail.com",
+            "homepage": "http://github.com/tacman",
+            "role": "Developer"
         }
     ],
     "require": {
-        "php": ">=7.0.0",
-        "datto/json-rpc": "~6.1"
+        "php": "^8.3",
+        "datto/json-rpc": "^6.1"
     },
     "autoload": {
         "psr-4": {
             "Datto\\JsonRpc\\Http\\Examples\\": "examples/src",
             "Datto\\JsonRpc\\Http\\": "src"
         }
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^2.1"
     }
 }

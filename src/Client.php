@@ -75,11 +75,11 @@ class Client
      * @param null|array $headers
      * An associative array of the raw HTTP headers that you'd like to send
      * with your request.
-     * 
+     *
      * Note that the CONTENT_TYPE, CONNECTION_TYPE, and METHOD headers are
      * automatically applied, since they are required for every request,
      * so you don't need to add them.
-     * 
+     *
      * You might need to add headers if you're using an authenticated API:
      *
      * Example 1. Add the header for basic access authentication:
@@ -94,18 +94,18 @@ class Client
      *
      * Example 1. Disable SSL verification (this might be useful for a development
      * environment without a valid SSL certificate):
-     * 
+     *
      * $options = array(
      *   'ssl' => array(
      *       'verify_peer' => false,
      *       'verify_peer_name' => false
      *   )
      * );
-     * 
+     *
      * @see http://php.net/manual/en/context.ssl.php SSL options
-     * 
+     *
      * Example 2. Add an HTTP timeout limit (so queries won't hang forever):
-     * 
+     *
      * $options = array(
      *   'http' => array(
      *       'timeout' => 5
@@ -114,7 +114,7 @@ class Client
      *
      * @see http://php.net/manual/en/context.http.php HTTP options
      */
-    public function __construct($uri, array $headers = null, array $options = null)
+    public function __construct($uri, ?array $headers = null, ?array $options = null)
     {
         $this->requiredHttpHeaders = array(
             'Accept' => self::$CONTENT_TYPE,
@@ -138,29 +138,29 @@ class Client
      * Queue up a message! You can queue up any number of messages here.
      * Then, when you're ready, call the "send" method to send all of the messages
      * in a single HTTP(S) request.
-     * 
+     *
      * Other APIs involve a long series of back-to-back roundtrips, but JSON-RPC
      * allows you to get everything done in just one trip! This is wonderful for
      * your latency.
-     * 
+     *
      * @param string $method
      * The method that you're calling on the remote server
-     * 
+     *
      * @param array $arguments
      * The arguments that you're supplying to the method
-     * 
+     *
      * @param mixed $response
      * After you've called this "query" method to queue up your message, call the
      * "send" method to send your message. You'll see a value appear here,
      * in this "$response" object (through the magic of pass by reference).
-     * 
+     *
      * More than likely, you'll receive the raw value that you were expecting
      * from the server. But, if the server was unable to successfully process
      * your request, you could wind up with an "ErrorResponse" object instead:
      * @see https://github.com/datto/php-json-rpc/tree/master/src/Responses/ErrorResponse ErrorResponse
-     * 
+     *
      * But be sure to check the type of the "$response" before you use it!
-     * 
+     *
      * @return self
      * Returns the object handle (so you can chain method calls if you're into
      * that kinky stuff)
@@ -178,22 +178,22 @@ class Client
      * Queue up a message! You can queue up any number of messages here.
      * Then, when you're ready, call the "send" method to send all of the messages
      * in a single HTTP(S) request.
-     * 
+     *
      * Other APIs involve a long series of back-to-back roundtrips, but JSON-RPC
      * allows you to get everything done in just one trip! This is wonderful for
      * your latency.
-     * 
+     *
      * This "notify" method sends a message to the server that does NOT need any
      * response. When you don't need a response, this is more efficient than
      * using the "query" method, since the server doesn't have to generate
      * a response, and you don't have to wait for one.
-     * 
+     *
      * @param string $method
      * The method that you're calling on the remote server
-     * 
+     *
      * @param array $arguments
      * The arguments that you're supplying to the method
-     *  
+     *
      * @return self
      * Returns the object handle (so you can chain method calls if you're into
      * that kinky stuff)
@@ -223,10 +223,10 @@ class Client
             stream_context_set_option($this->context, $options);
             $message = file_get_contents($this->uri, false, $this->context);
 
-            $this->throwHttpExceptionOnHttpError($http_response_header);
+//            $this->throwHttpExceptionOnHttpError($http_response_header);
             $this->deliverResponses($message);
         } catch (ErrorException $exception) {
-            $this->throwHttpExceptionOnHttpError($http_response_header);
+//            $this->throwHttpExceptionOnHttpError($http_response_header);
             throw $exception;
         } finally {
             restore_error_handler();
@@ -404,7 +404,7 @@ class Client
                 'header' => $header,
                 'content' => $content
             )
-        );        
+        );
     }
 
     private function getHeaderText($headers)
