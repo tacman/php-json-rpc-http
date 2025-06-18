@@ -1,5 +1,9 @@
 # JSON-RPC over HTTP(S) for PHP
 
+## Notes
+
+This fork removes the deprecation errors and requires at least PHP 8.3
+
 ## Overview
 
 This package allows you to set up a JSON-RPC client and/or server over HTTP(S),
